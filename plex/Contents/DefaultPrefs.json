@@ -1,0 +1,47 @@
+[
+	{
+		"id": "address",
+		"type": "text",
+		"label": "IDS_SERVER_ADDRESS",
+		"default": "localhost"
+	},
+
+	{
+		"id": "port",
+		"type": "text",
+		"label": "IDS_SERVER_PORT",
+		"default": "8080"
+	},
+	
+	{
+		"id": "user_name",
+		"type": "text",
+		"label": "IDS_USER_NAME",
+		"default": "user"
+	},
+	
+	{
+		"id": "password",
+		"type": "text",
+		"label": "IDS_PASSWORD",
+		"option": "hidden",
+		"secure": "true",
+		"default": "admin"
+	},
+	
+	{
+		"id": "sort_mode",
+		"label": "IDS_CHANNEL_SORTING",
+		"type": "enum",
+		"values": ["IDS_BY_NAME", "IDS_BY_NUMBER"],
+		"default": "IDS_BY_NUMBER"
+	},
+	
+	{
+		"id": "epg_of_days",
+		"label": "IDS_EPG_DAYS_LABEL",
+		"type": "enum",
+		"values": ["IDS_EPG_2_DAY", "IDS_EPG_3_DAY", "IDS_EPG_4_DAY", "IDS_EPG_5_DAYS", "IDS_EPG_6_DAYS", "IDS_EPG_7_DAYS"],
+		"default": "IDS_EPG_4_DAY"
+	}
+]
