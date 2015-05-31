@@ -8,7 +8,7 @@ from constants import *
 class RecordedTVMenu(object):
 
 	DLRECORDER_SOURCE_ID_ = "8F94B459-EFC0-4D91-9B29-EC3D72E92677"
-	
+
 	def create(self):
 		try:
 			categories = self.get_recorder_categories_()
@@ -45,7 +45,7 @@ class RecordedTVMenu(object):
 					item_object = self.create_recorded_tv_item(
 						item.url,
 						item.object_id,
-						item.video_info.name,
+						item.recording_title,
 						item.channel_name,
 						helper.create_summary(item.video_info),
 						float(helper.calculate_rating(item.video_info.stars_number, item.video_info.stars_max_number)),
@@ -65,7 +65,7 @@ class RecordedTVMenu(object):
 			return MessageContainer(
 				header=IDS_CAPTION_ERROR,
 				message=helper.get_status_string_id(error))
-	
+
 	def create_recorded_tv_item(self, url, object_id, title, source_title, summary, rating, start_time, duration, year, writers, directors, producers, guests, genres, thumbnail, include_container=False):
 		item_object = VideoClipObject(
 			key = Callback(
@@ -108,15 +108,15 @@ class RecordedTVMenu(object):
 				)
 			]
 		)
-		
+
 		if include_container:
 			return ObjectContainer(objects=[item_object])
 		else:
 			return item_object
-		
+
 	def play_recording(self, url):
 		return Redirect(url)
-	
+
 	def create_category_menu_(self, categories):
 		oc = ObjectContainer(
 			no_history = True,
@@ -125,20 +125,20 @@ class RecordedTVMenu(object):
 			art = R(helper.ART_RECORDED_TV))
 		for index, category in enumerate(categories):
 			oc.add(DirectoryObject(
-				key = Callback(self.create_recorded_tv_list, title=category.name, object_id=category.object_id), 
+				key = Callback(self.create_recorded_tv_list, title=category.name, object_id=category.object_id),
 				title = category.name,
 				summary = category.description,
 				thumb = Resource.ContentsOfURLWithFallback(category.logotype)))
 		return oc
-	
+
 	def create_recorded_tv_container_(self, container):
 		container_object = DirectoryObject(
-			key = Callback(self.create_recorded_tv_list, title=container.name, object_id=container.object_id), 
+			key = Callback(self.create_recorded_tv_list, title=container.name, object_id=container.object_id),
 			title = container.name,
 			summary = container.description,
 			thumb = Resource.ContentsOfURLWithFallback(container.logotype))
 		return container_object
-        
+
 	def get_recorder_categories_(self):
 		category_list = None
 		object = self.get_object_(ObjectRequester.OBJECT_ROOT_ID)
@@ -148,10 +148,10 @@ class RecordedTVMenu(object):
 					object = self.get_object_(container.object_id)
 					category_list = object.containers
 		return category_list
-	
+
 	def get_object_(self, object_id):
-		object_requester = ObjectRequester(object_id=object_id, 
+		object_requester = ObjectRequester(object_id=object_id,
 			server_address=Prefs[helper.SERVER_ADDRESS_KEY])
 		return data_provider.get_object(object_requester)
-		
+
 recorded_tv_menu = RecordedTVMenu()
